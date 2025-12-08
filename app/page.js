@@ -105,90 +105,78 @@ export default function Home() {
             {/* Verdict Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className={`rounded-lg p-6 shadow-sm border ${
-                data.verdicts.evVerdict === 'undervalued' ? 'bg-green-50 border-green-200' : 
-                data.verdicts.evVerdict === 'overvalued' ? 'bg-red-50 border-red-200' : 
+                data.overall.verdict === 'undervalued' ? 'bg-green-50 border-green-200' : 
+                data.overall.verdict === 'overvalued' ? 'bg-red-50 border-red-200' : 
                 'bg-yellow-50 border-yellow-200'
               }`}>
-                <p className="text-slate-600 text-sm font-medium mb-2">EV/EBITDA Verdict</p>
+                <p className="text-slate-600 text-sm font-medium mb-2">Valuation Status</p>
                 <p className={`text-3xl font-bold mb-3 ${
-                  data.verdicts.evVerdict === 'undervalued' ? 'text-green-700' : 
-                  data.verdicts.evVerdict === 'overvalued' ? 'text-red-700' : 
+                  data.overall.verdict === 'undervalued' ? 'text-green-700' : 
+                  data.overall.verdict === 'overvalued' ? 'text-red-700' : 
                   'text-yellow-700'
                 }`}>
-                  {data.verdicts.evVerdict.toUpperCase()}
+                  {data.overall.verdict.toUpperCase()}
                 </p>
-                <p className="text-slate-700">EV/EBITDA: <span className="font-semibold">{data.calculations.evEbitda.toFixed(2)}</span></p>
+                <p className="text-slate-700 text-sm font-semibold">{data.overall.confidence}% Confidence</p>
               </div>
 
-              <div className={`rounded-lg p-6 shadow-sm border ${
-                data.verdicts.cfVerdict === 'undervalued' ? 'bg-green-50 border-green-200' : 
-                data.verdicts.cfVerdict === 'overvalued' ? 'bg-red-50 border-red-200' : 
-                'bg-yellow-50 border-yellow-200'
-              }`}>
-                <p className="text-slate-600 text-sm font-medium mb-2">Cash Flow Verdict</p>
-                <p className={`text-3xl font-bold mb-3 ${
-                  data.verdicts.cfVerdict === 'undervalued' ? 'text-green-700' : 
-                  data.verdicts.cfVerdict === 'overvalued' ? 'text-red-700' : 
-                  'text-yellow-700'
-                }`}>
-                  {data.verdicts.cfVerdict.toUpperCase()}
-                </p>
-                <p className="text-slate-700 text-sm">Market Cap Range</p>
-              </div>
-
-              <div className={`rounded-lg p-6 shadow-sm border ${
-                data.verdicts.overall === 'undervalued' ? 'bg-green-50 border-green-200' : 
-                data.verdicts.overall === 'overvalued' ? 'bg-red-50 border-red-200' : 
-                'bg-yellow-50 border-yellow-200'
-              }`}>
-                <p className="text-slate-600 text-sm font-medium mb-2">Overall Verdict</p>
-                <p className={`text-3xl font-bold mb-3 ${
-                  data.verdicts.overall === 'undervalued' ? 'text-green-700' : 
-                  data.verdicts.overall === 'overvalued' ? 'text-red-700' : 
-                  'text-yellow-700'
-                }`}>
-                  {data.verdicts.overall.toUpperCase()}
-                </p>
-                <p className="text-slate-600 text-sm">{data.interpretation}</p>
+              <div className="rounded-lg p-6 shadow-sm border bg-blue-50 border-blue-200 col-span-2">
+                <p className="text-slate-600 text-sm font-medium mb-2">Analysis Summary</p>
+                <p className="text-slate-700 font-semibold">{data.interpretation}</p>
               </div>
             </div>
 
             {/* Key Metrics Grid */}
             <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-6">Key Financial Metrics</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div>
-                  <p className="text-slate-600 text-sm mb-1">Enterprise Value</p>
-                  <p className="text-2xl font-bold text-slate-900">${(data.rawData.ev / 1e12).toFixed(2)}T</p>
-                </div>
-                <div>
-                  <p className="text-slate-600 text-sm mb-1">EBITDA</p>
-                  <p className="text-2xl font-bold text-slate-900">${(data.rawData.ebitda / 1e9).toFixed(2)}B</p>
-                </div>
-                <div>
-                  <p className="text-slate-600 text-sm mb-1">Operating Cash Flow</p>
-                  <p className="text-2xl font-bold text-slate-900">${(data.rawData.operatingCashFlow / 1e9).toFixed(2)}B</p>
-                </div>
-                <div>
-                  <p className="text-slate-600 text-sm mb-1">Market Cap</p>
-                  <p className="text-2xl font-bold text-slate-900">${(data.rawData.marketCap / 1e12).toFixed(2)}T</p>
-                </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-6">Valuation Metrics</h3>
+              <div className="space-y-4">
+                {data.verdicts && data.verdicts.map((metric, idx) => (
+                  <div key={idx} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                    <div>
+                      <p className="text-slate-700 font-semibold">{metric.metric}</p>
+                      <p className="text-slate-500 text-sm">Value: {metric.value}</p>
+                    </div>
+                    <div>
+                      <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                        metric.verdict === 'undervalued' ? 'bg-green-100 text-green-700' :
+                        metric.verdict === 'overvalued' ? 'bg-red-100 text-red-700' :
+                        'bg-yellow-100 text-yellow-700'
+                      }`}>
+                        {metric.verdict.charAt(0).toUpperCase() + metric.verdict.slice(1)}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
             {/* Valuation Range */}
             <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-6">Valuation Range Analysis</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <p className="text-slate-600 text-sm font-medium mb-2">Cash Flow Lower Range</p>
-                  <p className="text-3xl font-bold text-slate-900">${(data.calculations.cashFlowLower / 1e12).toFixed(2)}T</p>
-                  <p className="text-slate-500 text-sm mt-2">OCF × 30 multiplier</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-6">Financial Overview</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="p-4 bg-slate-50 rounded-lg">
+                  <p className="text-slate-600 text-sm mb-1 font-medium">Market Capitalization</p>
+                  <p className="text-2xl font-bold text-slate-900">${(data.rawData.marketCap / 1e9).toFixed(2)}B</p>
                 </div>
-                <div>
-                  <p className="text-slate-600 text-sm font-medium mb-2">Cash Flow Upper Range</p>
-                  <p className="text-3xl font-bold text-slate-900">${(data.calculations.cashFlowUpper / 1e12).toFixed(2)}T</p>
-                  <p className="text-slate-500 text-sm mt-2">OCF × 35 multiplier</p>
+                <div className="p-4 bg-slate-50 rounded-lg">
+                  <p className="text-slate-600 text-sm mb-1 font-medium">Enterprise Value</p>
+                  <p className="text-2xl font-bold text-slate-900">${(data.rawData.enterpriseValue / 1e9).toFixed(2)}B</p>
+                </div>
+                <div className="p-4 bg-slate-50 rounded-lg">
+                  <p className="text-slate-600 text-sm mb-1 font-medium">Net Income</p>
+                  <p className="text-2xl font-bold text-slate-900">${(data.rawData.netIncome / 1e9).toFixed(2)}B</p>
+                </div>
+                <div className="p-4 bg-slate-50 rounded-lg">
+                  <p className="text-slate-600 text-sm mb-1 font-medium">Revenue</p>
+                  <p className="text-2xl font-bold text-slate-900">${(data.rawData.revenue / 1e9).toFixed(2)}B</p>
+                </div>
+                <div className="p-4 bg-slate-50 rounded-lg">
+                  <p className="text-slate-600 text-sm mb-1 font-medium">Operating Cash Flow</p>
+                  <p className="text-2xl font-bold text-slate-900">${(data.rawData.operatingCashFlow / 1e9).toFixed(2)}B</p>
+                </div>
+                <div className="p-4 bg-slate-50 rounded-lg">
+                  <p className="text-slate-600 text-sm mb-1 font-medium">Total Assets</p>
+                  <p className="text-2xl font-bold text-slate-900">${(data.rawData.totalAssets / 1e9).toFixed(2)}B</p>
                 </div>
               </div>
             </div>
