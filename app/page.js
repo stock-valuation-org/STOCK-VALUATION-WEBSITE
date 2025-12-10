@@ -361,24 +361,25 @@ export default function Home() {
             </p>
             <div className="flex gap-6 mt-4 md:mt-0">
               <a
-                href="https://github.com/roosteram25"
+                href="https://github.com/EMPI69"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`text-sm font-medium hover:text-blue-600 transition-colors ${
                   darkMode ? 'text-slate-400 hover:text-blue-400' : 'text-slate-600 hover:text-blue-600'
                 }`}
               >
-                GitHub: roosteram25
+                GitHub: EMPI69
               </a>
               <a
-                href="https://github.com"
+
+                href="https://github.com/ROOSTERAM25"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`text-sm font-medium hover:text-blue-600 transition-colors ${
                   darkMode ? 'text-slate-400 hover:text-blue-400' : 'text-slate-600 hover:text-blue-600'
                 }`}
               >
-                GitHub: Your Profile
+                 ROOSTERAM25
               </a>
             </div>
           </div>
