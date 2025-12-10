@@ -52,31 +52,29 @@ export default function Home() {
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gradient-to-b from-slate-900 to-slate-800' : 'bg-gradient-to-b from-slate-50 to-slate-100'}`}>
       {/* Navigation Bar */}
-      <nav className={`${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'} border-b shadow-sm sticky top-0 z-50 transition-colors duration-300`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-10">
-              <h1 className="text-2xl font-bold text-blue-600">Stock Analyzer</h1>
-              <div className="hidden md:flex gap-8 text-sm font-medium">
-                <button onClick={() => scrollToSection('hero')} className={`${darkMode ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'} transition-colors cursor-pointer`}>Home</button>
-                <button onClick={() => scrollToSection('metrics')} className={`${darkMode ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'} transition-colors cursor-pointer`}>Valuation Metrics</button>
-                <button onClick={() => scrollToSection('overview')} className={`${darkMode ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'} transition-colors cursor-pointer`}>Financial Overview</button>
-              </div>
+      <nav className={`${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'} border-b shadow-sm sticky top-0 z-50 transition-colors duration-300 w-full`}>
+        <div className="flex justify-between items-center h-16 px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-10">
+            <h1 className="text-2xl font-bold text-blue-600">Stock Analyzer</h1>
+            <div className="hidden md:flex gap-8 text-sm font-medium">
+              <button onClick={() => scrollToSection('hero')} className={`${darkMode ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'} transition-colors cursor-pointer`}>Home</button>
+              <button onClick={() => scrollToSection('metrics')} className={`${darkMode ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'} transition-colors cursor-pointer`}>Valuation Metrics</button>
+              <button onClick={() => scrollToSection('overview')} className={`${darkMode ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'} transition-colors cursor-pointer`}>Financial Overview</button>
             </div>
-            <div className="flex items-center gap-4">
-              {/* Dark Mode Toggle */}
-              <button
-                onClick={() => setDarkMode(!darkMode)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                  darkMode
-                    ? 'bg-slate-700 text-yellow-400 hover:bg-slate-600'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                }`}
-                title="Toggle dark mode"
-              >
-                {darkMode ? '☀️ Light' : '🌙 Dark'}
-              </button>
-            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            {/* Dark Mode Toggle */}
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                darkMode
+                  ? 'bg-slate-700 text-yellow-400 hover:bg-slate-600'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+              }`}
+              title="Toggle dark mode"
+            >
+              {darkMode ? '☀️ Light' : '🌙 Dark'}
+            </button>
           </div>
         </div>
       </nav>

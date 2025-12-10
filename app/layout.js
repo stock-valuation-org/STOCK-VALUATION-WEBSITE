@@ -14,6 +14,9 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "AI Stock Valuation Analyzer",
   description: "Check if a stock is undervalued, overvalued, or fairly valued using EV/EBITDA and cash flow multiples.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({ children }) {
